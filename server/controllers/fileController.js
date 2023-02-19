@@ -38,7 +38,7 @@ class fileController{
         });
 
 
-        return res.json(fileAddress);
+        return res.json({name, surname, patronymic, subject, mark});
     }
 }
 
