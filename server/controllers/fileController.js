@@ -10,13 +10,13 @@ class fileController{
             let fileData = fs.readFileSync(fileAddress, 'utf-8');
             let test = fileData.match(regexp).toString();
             let fileDataSlice = test.slice(3);
-            if (fileDataSlice == 'Неудовлитворительно'){
+            if (fileDataSlice == 'Неудовлитворительно' || fileDataSlice == 'неудовлитворительно'){
                 let fileContent = 
-                `Фамилия: ${surname}
-        Имя: ${name}
-        Отчество: ${patronymic}
-        Предмет: ${subject}
-        Оценка: ${mark}
+        `Фамилия: ${surname}
+Имя: ${name}
+Отчество: ${patronymic}
+Предмет: ${subject}
+Оценка: ${mark}
                 `;
                 fs.writeFile(fileAddress, fileContent, ()=>{
 

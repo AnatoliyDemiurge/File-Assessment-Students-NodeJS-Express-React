@@ -1,16 +1,35 @@
 import {useState} from 'react';
 import { sendForm } from '../services';
 import {Button, Form} from "react-bootstrap";
-import {Routes, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { removeFormData, setFormData } from '../store/slices/formDataSlice';
 const FormComponent = () => {
     const [surname, setSurname] = useState('') ;
     const [name, setName] = useState('') ;
     const [patronymic, setPatronymic] = useState('');
     const [subject, setSubject] = useState('');
     const [mark, setMark] = useState('');
-
+    const dispatch = useDispatch();
     const sendData = () => {
-        sendForm(surname, name, patronymic, subject, mark).then(data => console.log(data));
+        sendForm(surname, name, patronymic, subject, mark)
+            .then((data) => {
+                if (data.surname){
+                    dispatch(setFormData({
+                        surname: data.surname,
+                        name: data.name,
+                        patronymic: data.patronymic,
+                        subject: data.subject,
+                        mark: data.mark
+                    }
+                    )
+                    )
+                }else{
+                    dispatch(removeFormData(data));
+                }
+        }
+            );
+            
     }
     return (
         <div>
