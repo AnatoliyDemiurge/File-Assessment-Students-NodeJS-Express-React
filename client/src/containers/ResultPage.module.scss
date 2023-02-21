@@ -1,0 +1,16 @@
+.result{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height:800px;
+    &__success{
+        font-size:20px;
+        padding:3% 7%;
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5); 
+    }
+    &__error{
+        color:red;
+        padding:3% 7%;
+        box-shadow: 0px 5px 10px 0px rgba(255, 0, 0, 0.5); 
+    }
+}

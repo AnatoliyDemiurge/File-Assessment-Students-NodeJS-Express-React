@@ -4,6 +4,8 @@ import {Button, Form} from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { removeFormData, setFormData } from '../store/slices/formDataSlice';
+import clases from "./FormComponent.module.scss";
+import {useNavigate} from "react-router-dom";
 const FormComponent = () => {
     const [surname, setSurname] = useState('') ;
     const [name, setName] = useState('') ;
@@ -11,6 +13,7 @@ const FormComponent = () => {
     const [subject, setSubject] = useState('');
     const [mark, setMark] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const sendData = () => {
         sendForm(surname, name, patronymic, subject, mark)
             .then((data) => {
@@ -27,50 +30,59 @@ const FormComponent = () => {
                 }else{
                     dispatch(removeFormData(data));
                 }
+                navigate('/result');
         }
             );
             
     }
     return (
-        <div>
-            <Form>
+        <div className={clases.form}>
+            <Form
+                className={clases.form__wrapper}
+            >
+                <h3 className={clases.form__title}>Оценка студентов</h3>
                 <Form.Control
                     value={surname}
+                    className={clases.form__field}
                     onChange={e => setSurname(e.target.value)}
-                    className="mt-3"
                     placeholder={"Введите фамилию"}
                 >
                 </Form.Control>
                 <Form.Control
                     value={name}
+                    className={clases.form__field}
                     onChange={e => setName(e.target.value)}
-                    className="mt-3"
                     placeholder={"Введите имя"}
                 >
                 </Form.Control>
                 <Form.Control
                     value={patronymic}
+                    className={clases.form__field}
                     onChange={e => setPatronymic(e.target.value)}
-                    className="mt-3"
                     placeholder={"Введите отчество"}
                 >
                 </Form.Control>
                 <Form.Control
                     value={subject}
+                    className={clases.form__field}
                     onChange={e=> setSubject(e.target.value)}
-                    className="mt-3"
                     placeholder={"Введите предмет"}
                 >
                 </Form.Control>
                 <Form.Control
                     value={mark}
+                    className={clases.form__field}
                     onChange={e=> setMark(e.target.value)}
-                    className="mt-3"
                     placeholder={"Введите оценку"}
                 >
                 </Form.Control>
+                <Button
+                    className={clases.form__button}
+                    onClick={sendData}
+                >
+                    Отправить
+                </Button>
             </Form>
-            <Link to="/result"><Button onClick={sendData}>Отправить</Button></Link>
     </div>
     );
 };
