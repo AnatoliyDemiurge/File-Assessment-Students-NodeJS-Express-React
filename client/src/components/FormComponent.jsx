@@ -2,10 +2,12 @@ import {useState} from 'react';
 import { sendForm } from '../services';
 import {Button, Form} from "react-bootstrap";
 import {Link} from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { useDispatch } from 'react-redux';
 import { removeFormData, setFormData } from '../store/slices/formDataSlice';
-import clases from "./FormComponent.module.scss";
 import {useNavigate} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
+import clases from "./FormComponent.module.scss";
 const FormComponent = () => {
     const [surname, setSurname] = useState('') ;
     const [name, setName] = useState('') ;
@@ -69,13 +71,33 @@ const FormComponent = () => {
                     placeholder={"Введите предмет"}
                 >
                 </Form.Control>
-                <Form.Control
-                    value={mark}
-                    className={clases.form__field}
-                    onChange={e=> setMark(e.target.value)}
-                    placeholder={"Введите оценку"}
-                >
-                </Form.Control>
+                <Dropdown 
+                        className
+                    >
+                        <Dropdown.Toggle>{mark ||"Выберите оценку"}</Dropdown.Toggle>
+                        <Dropdown.Menu>
+                                <Dropdown.Item
+                                    onClick={e=> setMark("Отлично")}
+                                >
+                                    Отлично
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                    onClick={e=> setMark("Хорошо")}
+                                >
+                                    Хорошо
+                             </Dropdown.Item>
+                             <Dropdown.Item
+                                    onClick={e=> setMark("Удовлитворительно")}
+                                >
+                                    Удовлитворительно
+                             </Dropdown.Item>
+                             <Dropdown.Item
+                                    onClick={e=> setMark("Неудовлитворительно")}
+                                >
+                                    Неудовлитворительно
+                             </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 <Button
                     className={clases.form__button}
                     onClick={sendData}
