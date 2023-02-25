@@ -10,7 +10,7 @@ class fileController{
             let fileData = fs.readFileSync(fileAddress, 'utf-8');
             let test = fileData.match(regexp).toString();
             let fileDataSlice = test.slice(3);
-            if (fileDataSlice == 'Неудовлитворительно' || fileDataSlice == 'неудовлитворительно'){
+            if (fileDataSlice == 'Неудовлетворительно'){
                 let fileContent = 
         `Фамилия: ${surname}
 Имя: ${name}

@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import { sendForm } from '../services';
 import {Button, Form} from "react-bootstrap";
-import {Link} from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useDispatch } from 'react-redux';
 import { removeFormData, setFormData } from '../store/slices/formDataSlice';
@@ -9,13 +8,19 @@ import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import clases from "./FormComponent.module.scss";
 const FormComponent = () => {
+    enum marks{
+        fail = "Неудовлетворительно",
+        satisfactorily = "Yдовлетворительно",
+        good = "Хорошо",
+        excellant = "Отлично",
+    }
     const [surname, setSurname] = useState('') ;
     const [name, setName] = useState('') ;
     const [patronymic, setPatronymic] = useState('');
     const [subject, setSubject] = useState('');
     const [mark, setMark] = useState('');
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const sendData = () => {
         sendForm(surname, name, patronymic, subject, mark)
             .then((data) => {
@@ -71,28 +76,26 @@ const FormComponent = () => {
                     placeholder={"Введите предмет"}
                 >
                 </Form.Control>
-                <Dropdown 
-                        className
-                    >
+                <Dropdown>
                         <Dropdown.Toggle>{mark ||"Выберите оценку"}</Dropdown.Toggle>
                         <Dropdown.Menu>
                                 <Dropdown.Item
-                                    onClick={e=> setMark("Отлично")}
+                                    onClick={e=> setMark(marks.excellant)}
                                 >
                                     Отлично
                                 </Dropdown.Item>
                                 <Dropdown.Item
-                                    onClick={e=> setMark("Хорошо")}
+                                    onClick={e=> setMark(marks.good)}
                                 >
                                     Хорошо
                              </Dropdown.Item>
                              <Dropdown.Item
-                                    onClick={e=> setMark("Удовлитворительно")}
+                                    onClick={e=> setMark(marks.satisfactorily)}
                                 >
                                     Удовлитворительно
                              </Dropdown.Item>
                              <Dropdown.Item
-                                    onClick={e=> setMark("Неудовлитворительно")}
+                                    onClick={e=> setMark(marks.fail)}
                                 >
                                     Неудовлитворительно
                              </Dropdown.Item>
